@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Date Time Picker - Frequently Asked Questions</title>
+</head>
+<body>
+<table cellpadding=0 cellspacing=0 border=0 align=center
+style="text-align: left; height: 75%; width: 90%; margin-left: auto; margin-right: auto;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: center;">
+<h1>Date Time Picker - Frequently Asked Questions</h1>
+<br>
+<a href="#1">1. How do I change the hour time format to 24 Hour format?</a><br>
+<a href="#2">2. How do I change the clock to display in 24 Hour format?</a><br>
+<a href="#3">3. How do I have an empty Date Time Picker that doesn't
+have any date time selection by default?</a><br>
+<a href="#4">4. How do I restrict date selection?</a><br>
+<a href="#5">5. How do I restrict time selection?</a><br>
+<a href="#6">6. How do I change the clock face?</a><br>
+<a href="#7">7. How do I change the clock needles?</a><br>
+<a href="#8">8. How do I set tooltip for unavailable days in the Date Time Picker?</a><br>
+<a href="#9">10. How do I change the labels like OK, Cancel...?</a><br>
+<br>
+<em><a name="1"></a></em><span style="font-weight: bold;">1. How do I
+change the hour time format to 24 Hour format?</span><br>
+The DateTimePicker uses the hourFormat property of
+LocaleSpecificResources class to select the hour format. The
+DateTimePicker constructor picks the property from the
+LocaleSpecificResources and formats the display. The DateTimePicker
+hour format doesn't change after the constructor. Use the
+LocaleSpecificResources.setHourFormat method to set the hour format. <br>
+<br>
+<em><a name="2"></a></em><span style="font-weight: bold;">2. How do I
+change the clock to display in 24 Hour format?</span><br>
+Even if the LocalSpecificResources.hourFormat property is set to 24 Hour format,
+The clock panel will displays in 12 hour format. If you still want to force
+the clock panel to 24 hour format, you can do so by setting the hourFormat property
+of the clock panel to LocaleSpecificResources.HOUR_FORMAT_24. 
+<code><pre>
+...
+dateTimePicker.getTimePanel().getClockPanel().setHourFormat(
+     LocaleSpecificResources.HOUR_FORMAT_24);
+...
+</pre></code>
+<br>
+<a style="font-weight: bold;" name="3"></a><span
+ style="font-weight: bold;">3. How do I have an empty Date Time Picker
+that doesn't have any date time selection by default?</span><br>
+<span style="color: red;">In 2.8.0 version, you can directly construct a DateTimePicker with null to have blank date. Use the "setDisplayClearButton" method to allow user to clear date time selection.</span><br>
+For older version,
+Here is an class that extends the DateTimePicker to implement a empty
+DateTimePicker which will not have a default selection. <br>
+When there is no selection, null be returned as the selected date time.
+If null is set as the date time, the DateTimePicker selection becomes
+empty.<br>
+<br>
+<code>import java.util.*; <br>
+import javax.swing.*; <br>
+import com.lavantech.gui.comp.*;<br>
+&nbsp;<br>
+public class MyDateTimePicker extends DateTimePicker<br>
+{<br>
+&nbsp;&nbsp;&nbsp; JFormattedTextField editor;<br>
+<br>
+&nbsp;&nbsp;&nbsp; public MyDateTimePicker(GregorianCalendar cal,
+String format)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super(cal, format);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setEditable(true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; editor = getEditor();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+editor.setFocusLostBehavior(JFormattedTextField.COMMIT);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; editor.setText("");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; public GregorianCalendar getCalendar()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(editor.getText().trim().equals(""))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return super.getCalendar();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; public Date getDate()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(editor.getText().trim().equals(""))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return super.getDate();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</code> <br>
+<br>
+<a style="font-weight: bold;" name="4"></a><span
+ style="font-weight: bold;">4. How do I restrict date selection?</span><br>
+Use the DateUnavailablityModel to set dates that can't be selected. See
+the example demo source code. You can also use the
+setMinSelectableTime() and setMaxSelectableTime() to set a selectable
+time period. <br>
+<br>
+<a style="font-weight: bold;" name="5"></a><span
+ style="font-weight: bold;">5. How do I restrict time selection?</span><br>
+There is no TimeUnavailablityModel similar to DateUnavailablityModel to
+restrict time selection, but you can use setMinSelectableTime() and
+setMaxSelectableTime() to set a time period.<br>
+<br>
+<a style="font-weight: bold;" name="6"></a><span
+ style="font-weight: bold;">6. How do I change the clock face?</span><br>
+ The clock face can be set to a custom image by calling the 
+ setFaceImage() method on the clock panel. The demo source code 
+ <a href="demo/TestClockPanel.java">TestClockPanel.java</a> uses this method 
+ to change the clock face image.<br>
+<br>
+<a style="font-weight: bold;" name="7"></a><span
+ style="font-weight: bold;">7. How do I change the clock needle?</span><br>
+ The clock needles can be customized for shape, height and width. Since the
+ clock needles are dynamically resized relative to the clock radius, the height
+ is specified as a ratio of the needle height to the clock radius. The is same is
+ for width. See demo source code <a href-"demo/TestTimePanel.java">TestTimePanel.java</a>
+ for more details.<br>
+<br>
+<a style="font-weight: bold;" name="8"></a><span
+ style="font-weight: bold;">8. How do I set tooltip for unavailable days in Date Time Picker?</span><br>
+ Currently the DateUnavailabilityModel doesn't support tooltip for unavailable dates. 
+ But there is a way you could still set the tool tip for unavailable dates. The CalendarPanel
+ has two panels inside it.  One is the day header panel on the north and 
+ the other one is the center panel that holds the date buttons. All you have to do
+ is get this center panel and get all the date buttons and set the tooltip for them. The date buttons
+ are changed whenever the month selection is changed, you can use the container listener to update the
+ date buttons. Look at the sample code for more details. 
+ <a href="demo/ToolTipDateTimePicker.java">ToolTipDateTimePicker.java</a>
+ for more details.<br>
+<br>
+<a style="font-weight: bold;" name="9"></a><span style="font-weight: bold;">
+9. How do I change the labels like OK, Cancel...?</span><br>
+Use the LocaleSpecificResources.setLabelString(key, value) method to set the label. 
+<a href="javadoc/com/lavantech/gui/comp/LocaleSpecificResources.html#setLabelString(java.lang.String,%20java.lang.String)">Check the API document for more information.</a>
+<br>
+
+    </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

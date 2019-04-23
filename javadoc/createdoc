@@ -1,0 +1,9 @@
+#!/bin/sh
+javadoc -d . -classpath ../javasrc \
+			../javasrc/com/lavantech/gui/comp/CalendarPanel.java \
+			../javasrc/com/lavantech/gui/comp/CompactGridLayout.java \
+			../javasrc/com/lavantech/gui/comp/DateTimePicker.java \
+			../javasrc/com/lavantech/gui/comp/DateUnavailabilityModel.java \
+			../javasrc/com/lavantech/gui/comp/LocaleSpecificResources.java \
+			../javasrc/com/lavantech/gui/comp/TimePanel.java \
+			../javasrc/com/lavantech/gui/comp/ClockPanel.java 

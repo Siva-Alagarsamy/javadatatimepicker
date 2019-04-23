@@ -11,21 +11,17 @@
 * Clock panel face and needles can be customized.
 
 ## Screenshots
-![Date Time Picker](web/datetimepicker1.png)
+![Date Time Picker](images/DateTimePicker1.png)
+![Date Time Picker](images/DateTimePicker2.png)
+![Date Time Picker](images/DateTimePicker3.png)
+![Date Time Picker](images/DateTimePicker4.png)
+![Date Time Picker](images/DateTimePicker5.png)
 
-## Demo Source Code
+## FAQ
+[Link to FAQ](faq.html)
 
-[TestDateTimePicker.java](demo/TestDateTimePicker.java)
+## Java Documentation
+[Link to Java Documentation](javadoc/index.html)
 
-[TestCalendarPanel.java](demo/TestCalendarPanel.java)
-
-[TestTimePanel.java](demo/TestTimePanel.java)
-
-[TestClockPanel.java](demo/TestClockPanel.java)
-
-[DateTimeCellEditor.java](demo/DateTimeCellEditor.java)
-
-[DateTimeCellRenderer.java](demo/DateTimeCellRenderer.java)
-
-[TestTableDateTimePicker.java](demo/TestTableDateTimePicker.java)
-
+## License
+[GNU Lesser General Public License v3.0 ](LICENSE)
